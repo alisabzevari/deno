@@ -15,11 +15,13 @@ export interface ListenOptions {
   port: number;
   hostname?: string;
   transport?: "tcp" | "udp";
+  bufferSize?: number;
 }
 
 export interface UnixListenOptions {
   transport: "unix" | "unixpacket";
   path: string;
+  bufferSize?: number;
 }
 
 export function listen(
@@ -57,7 +59,7 @@ export function listenDatagram(
     });
   }
 
-  return new DatagramImpl(res.rid, res.localAddr);
+  return new DatagramImpl(res.rid, res.localAddr, options.bufferSize);
 }
 
 export interface UnixConnectOptions {

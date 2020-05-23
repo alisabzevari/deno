@@ -34,6 +34,24 @@ unitTest(
 );
 
 unitTest(
+  {
+    perms: { net: true },
+    // TODO:
+    ignore: Deno.build.os === "windows",
+  },
+  function netUdpListenBufferSize(): void {
+    const socket = Deno.listenDatagram({
+      hostname: "127.0.0.1",
+      port: 3500,
+      transport: "udp",
+      bufferSize: 2048
+    });
+    assertEquals((socket as any).bufSize, 2048)
+    socket.close();
+  }
+);
+
+unitTest(
   { ignore: Deno.build.os === "windows", perms: { read: true, write: true } },
   function netUnixListenClose(): void {
     const filePath = Deno.makeTempFileSync();
