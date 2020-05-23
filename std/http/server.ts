@@ -13,11 +13,12 @@ import {
 import Listener = Deno.Listener;
 import Conn = Deno.Conn;
 import Reader = Deno.Reader;
+import { HttpMethod } from "./http_method.ts";
 const { listen, listenTls } = Deno;
 
 export class ServerRequest {
   url!: string;
-  method!: string;
+  method!: HttpMethod;
   proto!: string;
   protoMinor!: number;
   protoMajor!: number;
